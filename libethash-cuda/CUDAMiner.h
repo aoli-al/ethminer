@@ -40,6 +40,7 @@ public:
 
     void search(
         uint8_t const* header, uint64_t target, uint64_t _startN, const dev::eth::WorkPackage& w);
+    void workLoop() override;
 
 protected:
     bool initDevice() override;
@@ -51,7 +52,6 @@ protected:
 private:
     atomic<bool> m_new_work = {false};
 
-    void workLoop() override;
 
     std::vector<volatile Search_results*> m_search_buf;
     std::vector<cudaStream_t> m_streams;

@@ -270,4 +270,7 @@ extern "C" void free_blake2b(int thr_id)
 	init[thr_id] = false;
 
 	cudaDeviceSynchronize();
+	// blake
+	// sia
+	// sha256
 }

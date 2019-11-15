@@ -16,6 +16,13 @@
 
 #include "dagger_shuffled.cuh"
 
+__constant__ uint32_t d_dag_size;
+__constant__ hash128_t* d_dag;
+__constant__ uint32_t d_light_size;
+__constant__ hash64_t* d_light;
+__constant__ hash32_t d_header;
+__constant__ uint64_t d_target;
+
 __global__ void ethash_search(volatile Search_results* g_output, uint64_t start_nonce)
 {
     uint32_t const gid = blockIdx.x * blockDim.x + threadIdx.x;
@@ -39,7 +46,8 @@ __global__ void ethash_search(volatile Search_results* g_output, uint64_t start_
 void run_ethash_search(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
     volatile Search_results* g_output, uint64_t start_nonce)
 {
-    ethash_search<<<gridSize, blockSize, 0, stream>>>(g_output, start_nonce);
+    ethash_search<<<gridSize, blockSize>>>(g_output, start_nonce);
+    cudaDeviceSynchronize();
     CUDA_SAFE_CALL(cudaGetLastError());
 }
 

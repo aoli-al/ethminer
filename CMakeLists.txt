@@ -111,7 +111,7 @@ if (APICORE)
     add_subdirectory(libapicore)
 endif()
 
-add_subdirectory(ethminer)
+add_subdirectory(fuse)
 
 
 if(WIN32)
