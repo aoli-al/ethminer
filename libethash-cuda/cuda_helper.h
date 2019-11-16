@@ -98,7 +98,7 @@ DEV_INLINE uint64_t MAKE_ULONGLONG(uint32_t LO, uint32_t HI)
     return result;
 }
 
-// Endian Drehung für 32 Bit Typen
+// Endian Drehung fï¿½r 32 Bit Typen
 #ifdef __CUDA_ARCH__
 DEV_INLINE uint32_t cuda_swab32(const uint32_t x)
 {
@@ -987,3 +987,29 @@ DEV_INLINE uint32_t bfi(uint32_t x, uint32_t a, uint32_t bit, uint32_t numBits)
     asm("bfi.b32 %0, %1, %2, %3,%4;" : "=r"(ret) : "r"(x), "r"(a), "r"(bit), "r"(numBits));
     return ret;
 }
+
+#define AS_UINT2(addr) *((uint2*)(addr))
+
+__device__ __forceinline__ uint32_t _LODWORD(const uint64_t &x) {
+#if __CUDA_ARCH__ >= 130
+    return (uint32_t)__double2loint(__longlong_as_double(x));
+#else
+    return (uint32_t)(x & 0xFFFFFFFFULL);
+#endif
+}
+
+// das Hi Word aus einem 64 Bit Typen extrahieren
+__device__ __forceinline__ uint32_t _HIDWORD(const uint64_t &x) {
+#if __CUDA_ARCH__ >= 130
+    return (uint32_t)__double2hiint(__longlong_as_double(x));
+#else
+    return (uint32_t)(x >> 32);
+#endif
+}
+
+__device__ __forceinline__
+uint2 SWAPUINT2(uint2 value)
+{
+    return make_uint2(value.y, value.x);
+}
+

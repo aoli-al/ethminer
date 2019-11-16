@@ -79,7 +79,6 @@ extern const uint3 threadIdx;
 
 #define AS_U32(addr)   *((uint32_t*)(addr))
 #define AS_U64(addr)   *((uint64_t*)(addr))
-#define AS_UINT2(addr) *((uint2*)(addr))
 #define AS_UINT4(addr) *((uint4*)(addr))
 #define AS_UL2(addr)   *((ulonglong2*)(addr))
 
@@ -102,7 +101,7 @@ __device__ __forceinline__ uint64_t REPLACE_LODWORD(const uint64_t &x, const uin
 	return (x & 0xFFFFFFFF00000000ULL) | ((uint64_t)y);
 }
 
-// Endian Drehung für 32 Bit Typen
+// Endian Drehung fï¿½r 32 Bit Typen
 #ifdef __CUDA_ARCH__
 __device__ __forceinline__ uint32_t cuda_swab32(uint32_t x)
 {

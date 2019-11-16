@@ -281,8 +281,9 @@ void CUDAMiner::search(
     buffer.count = 0;
 
     // Run the batch for this stream
-    run_ethash_search(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
     run_ethash_search_blake(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
+    run_ethash_search_sha256(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
+    run_ethash_search_sia(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
 
 //    // process stream batches until we get new work.
 //    bool done = false;
