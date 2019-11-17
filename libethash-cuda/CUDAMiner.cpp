@@ -19,6 +19,8 @@ along with ethminer.  If not, see <http://www.gnu.org/licenses/>.
 #include <ethash/ethash.hpp>
 
 #include "CUDAMiner.h"
+#include <cuda_profiler_api.h>
+
 
 using namespace std;
 using namespace dev;
@@ -281,9 +283,12 @@ void CUDAMiner::search(
     buffer.count = 0;
 
     // Run the batch for this stream
+    cudaProfilerStart();
+
     run_ethash_search_blake(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
     run_ethash_search_sha256(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
     run_ethash_search_sia(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
+    cudaProfilerStop();
 
 //    // process stream batches until we get new work.
 //    bool done = false;

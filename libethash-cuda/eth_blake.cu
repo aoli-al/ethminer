@@ -12,9 +12,13 @@
 #include <string.h>
 #include <stdint.h>
 
+#include "keccak.cuh"
+
+#include "dagger_shuffled.cuh"
+
 //#include <sph/blake2b.h>
 
-#define TPB 128
+#define TPB 512
 #define NBN 2
 
 static uint32_t *d_resNonces[MAX_GPUS];
@@ -79,7 +83,6 @@ static void G(const int r, const int i, uint64_t &a, uint64_t &b, uint64_t &c, u
 	G(r, 7, v[3], v[4], v[ 9], v[14], m);
 
 __global__
-//__launch_bounds__(128, 8) /* to force 64 regs */
 void blake2b_gpu_hash(
     const uint32_t threads, const uint32_t startNonce, uint32_t *resNonce, const uint2 target2)
 {
@@ -138,10 +141,6 @@ void blake2b_gpu_hash(
     {                                \
         (dst)[i] = (src)[i];         \
     }
-
-#include "keccak.cuh"
-
-#include "dagger_shuffled.cuh"
 
 
 __global__ void ethash_search2(volatile Search_results* g_output, uint64_t start_nonce)
@@ -340,7 +339,7 @@ void run_ethash_search_blake(uint32_t gridSize, uint32_t blockSize, cudaStream_t
                        volatile Search_results* g_output, uint64_t start_nonce)
 {
     {
-        uint32_t threads = 1048576;
+        uint32_t threads = 4194304;
         dim3 grid((threads + TPB-1)/TPB);
         dim3 block(TPB);
         auto thr_id = 0;
@@ -354,7 +353,7 @@ void run_ethash_search_blake(uint32_t gridSize, uint32_t blockSize, cudaStream_t
         cudaStreamCreate ( &t2);
         blake2b_gpu_hash <<<grid, block, 8, t1>>> (threads, 0, d_resNonces[thr_id], target2);
         ethash_search2<<<gridSize, blockSize, 0, t2>>>(g_output, start_nonce);
-        ethash_search_blake_fused<<<grid, block.x + blockSize, 8>>>
+        ethash_search_blake_fused<<<grid, 640, 8>>>
         (g_output, start_nonce, threads, 0, d_resNonces[thr_id], target2);
     }
 
