@@ -285,14 +285,14 @@ void CUDAMiner::search(
     // Run the batch for this stream
     cudaProfilerStart();
 
-    run_ethash_search(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
+//    run_ethash_search(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
     run_ethash_search_blake(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
-    run_ethash_search_sha256(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
-    run_ethash_search_sia(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
-    blake_sia();
-    blake_sha256();
-    sha256_sia();
-    cudaProfilerStop();
+//    run_ethash_search_sha256(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
+//    run_ethash_search_sia(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
+//    blake_sia();
+//    blake_sha256();
+//    sha256_sia();
+//    cudaProfilerStop();
 
 //    // process stream batches until we get new work.
 //    bool done = false;

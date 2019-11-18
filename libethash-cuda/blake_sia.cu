@@ -18,7 +18,7 @@
 
 //#include <sph/blake2b.h>
 #define TPB_sia 128
-#define TPB_blake 512
+#define TPB_blake 128
 
 static uint32_t* d_blake_resNonces[MAX_GPUS];
 
@@ -111,11 +111,11 @@ __global__
 //__launch_bounds__(128, 8) /* to force 64 regs */
 void sia_blake2b_gpu_hash(const uint32_t threads, const uint32_t startNonce, uint32_t *resNonce, const uint2 target2)
 {
-    const uint32_t nonce = (blockDim.x * blockIdx.x + threadIdx.x) + startNonce;
-    __shared__ uint64_t s_target;
-    if (!threadIdx.x) s_target = devectorize(target2);
-
     for (int i = 0; i < 80; i++) {
+        const uint32_t nonce = (blockDim.x * blockIdx.x + threadIdx.x) * 80 + i + startNonce;
+        __shared__ uint64_t s_target;
+        if (!threadIdx.x) s_target = devectorize(target2);
+
         uint64_t m[16];
 
         m[0] = d_data2[0];
@@ -225,9 +225,9 @@ __device__ __forceinline__ static void G_b(const int r, const int i, uint64_t& a
 __global__ void blake2b_gpu_hash(
     const uint32_t threads, const uint32_t startNonce, uint32_t* resNonce, const uint2 target2)
 {
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 80; i++)
     {
-        const uint32_t nonce = (blockDim.x * blockIdx.x + threadIdx.x) + startNonce;
+        const uint32_t nonce = (blockDim.x * blockIdx.x + threadIdx.x) * 80 + i + startNonce;
 
         uint64_t m[16];
 
@@ -893,7 +893,7 @@ void blake_sia()
         dim3 block_sia(TPB_sia);
         uint32_t resNonces[NBN] = { UINT32_MAX, UINT32_MAX };
         uint32_t result = UINT32_MAX;
-        uint32_t threads_blake = 4194304;
+        uint32_t threads_blake = 1048576;
         dim3 grid_blake((threads_blake + TPB_blake -1)/ TPB_blake);
         dim3 block_blake(TPB_blake);
         auto thr_id = 0;
@@ -919,14 +919,14 @@ void blake_sia()
         cudaDeviceSynchronize();
 
         blake2b_gpu_hash_sia_blake2b_gpu_hash_0
-            <<<grid_blake, block_blake.x + block_sia.x, 8, t1>>> (
+            <<<grid_blake, block_blake.x + block_sia.x, 16, t1>>> (
             threads_blake, 0, d_blake_resNonces[thr_id], target2,
                 threads_sia, 0, d_sia_resNonces[thr_id], target2);
 
         cudaDeviceSynchronize();
 
         blake2b_gpu_hash_sia_blake2b_gpu_hash_100
-            <<<grid_blake, block_blake.x + block_sia.x, 8, t1>>> (
+            <<<grid_blake, 128, 16, t1>>> (
             threads_blake, 0, d_blake_resNonces[thr_id], target2,
                 threads_sia, 0, d_sia_resNonces[thr_id], target2);
 

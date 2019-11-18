@@ -108,11 +108,11 @@ __global__
 //__launch_bounds__(128, 8) /* to force 64 regs */
 void sia_blake2b_gpu_hash(const uint32_t threads, const uint32_t startNonce, uint32_t *resNonce, const uint2 target2)
 {
-    const uint32_t nonce = (blockDim.x * blockIdx.x + threadIdx.x) + startNonce;
-    __shared__ uint64_t s_target;
-    if (!threadIdx.x) s_target = devectorize(target2);
 
     for (int i = 0; i < 80; i++) {
+        const uint32_t nonce = (blockDim.x * blockIdx.x + threadIdx.x) * 80 + i + startNonce;
+        __shared__ uint64_t s_target;
+        if (!threadIdx.x) s_target = devectorize(target2);
         uint64_t m[16];
 
         m[0] = d_data2[0];
@@ -390,7 +390,7 @@ __global__
 void sha256d_gpu_hash_shared(const uint32_t threads, const uint32_t startNonce, uint32_t *resNonces)
 {
     for (int i = 0; i < 40; i++) {
-        const uint32_t thread = (blockDim.x * blockIdx.x + threadIdx.x);
+        const uint32_t thread = (blockDim.x * blockIdx.x + threadIdx.x) * 40 + i;
 
         __shared__ uint32_t s_K[64*4];
         //s_K[thread & 63] = c_K[thread & 63];
@@ -441,8 +441,8 @@ void sha256d_gpu_hash_shared(const uint32_t threads, const uint32_t startNonce, 
     }
 }
 
-__global__
-void sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_0(const uint32_t threads9, const uint32_t startNonce10, uint32_t *resNonces11, const uint32_t threads0, const uint32_t startNonce1, uint32_t *resNonce2, const uint2 target23)
+
+__attribute__((global)) void sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_0(const uint32_t threads9, const uint32_t startNonce10, uint32_t *resNonces11, const uint32_t threads0, const uint32_t startNonce1, uint32_t *resNonce2, const uint2 target23)
 {
     if (!((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y)>=0 && (threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y) < 128)) goto label_0;
     unsigned int blockDim_x_1;
@@ -459,7 +459,7 @@ void sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_0(const uint32_t threads9, con
     threadIdx_z_1 = ((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y) - 0) / 128;
     for (int i = 0; i < 40; i++) {
         uint32_t thread12;
-        thread12 = (blockDim_x_1 * blockIdx.x + threadIdx_x_1);
+        thread12 = (blockDim_x_1 * blockIdx.x + threadIdx_x_1) * 40 + i;
         static uint32_t s_K13[256] __attribute__((shared));
         if (threadIdx_x_1 < 64U)
             s_K13[threadIdx_x_1] = c_K[threadIdx_x_1];
@@ -513,12 +513,12 @@ void sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_0(const uint32_t threads9, con
     blockDim_z_0 = 1;
     unsigned int threadIdx_z_0;
     threadIdx_z_0 = ((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y) - 128) / 128;
-    uint32_t nonce4;
-    nonce4 = (blockDim_x_0 * blockIdx.x + threadIdx_x_0) + startNonce1;
-    static uint64_t s_target5 __attribute__((shared));
-    if (!threadIdx_x_0)
-        s_target5 = devectorize(target23);
     for (int i = 0; i < 80; i++) {
+        uint32_t nonce4;
+        nonce4 = (blockDim_x_0 * blockIdx.x + threadIdx_x_0) * 80 + i + startNonce1;
+        static uint64_t s_target5 __attribute__((shared));
+        if (!threadIdx_x_0)
+            s_target5 = devectorize(target23);
         uint64_t m6[16];
         m6[0] = d_data2[0];
         m6[1] = d_data2[1];
@@ -651,8 +651,8 @@ void sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_0(const uint32_t threads9, con
     label_1:;
 }
 
-__global__
-void sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_100(const uint32_t threads9, const uint32_t startNonce10, uint32_t *resNonces11, const uint32_t threads0, const uint32_t startNonce1, uint32_t *resNonce2, const uint2 target23)
+
+__attribute__((global)) void sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_100(const uint32_t threads9, const uint32_t startNonce10, uint32_t *resNonces11, const uint32_t threads0, const uint32_t startNonce1, uint32_t *resNonce2, const uint2 target23)
 {
     if (((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y)>=0 && (threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y) < 128)){
         unsigned int blockDim_x_1;
@@ -669,7 +669,7 @@ void sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_100(const uint32_t threads9, c
         threadIdx_z_1 = ((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y) - 0) / 128;
         for (int i = 0; i < 40; i++) {
             uint32_t thread12;
-            thread12 = (blockDim_x_1 * blockIdx.x + threadIdx_x_1);
+            thread12 = (blockDim_x_1 * blockIdx.x + threadIdx_x_1) * 40 + i;
             static uint32_t s_K13[256] __attribute__((shared));
             if (threadIdx_x_1 < 64U)
                 s_K13[threadIdx_x_1] = c_K[threadIdx_x_1];
@@ -723,12 +723,12 @@ void sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_100(const uint32_t threads9, c
         blockDim_z_0 = 1;
         unsigned int threadIdx_z_0;
         threadIdx_z_0 = ((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y) - 0) / 128;
-        uint32_t nonce4;
-        nonce4 = (blockDim_x_0 * blockIdx.x + threadIdx_x_0) + startNonce1;
-        static uint64_t s_target5 __attribute__((shared));
-        if (!threadIdx_x_0)
-            s_target5 = devectorize(target23);
         for (int i = 0; i < 80; i++) {
+            uint32_t nonce4;
+            nonce4 = (blockDim_x_0 * blockIdx.x + threadIdx_x_0) * 80 + i + startNonce1;
+            static uint64_t s_target5 __attribute__((shared));
+            if (!threadIdx_x_0)
+                s_target5 = devectorize(target23);
             uint64_t m6[16];
             m6[0] = d_data2[0];
             m6[1] = d_data2[1];
@@ -862,7 +862,6 @@ void sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_100(const uint32_t threads9, c
 }
 
 
-
 }
 
 void sha256_sia()
@@ -900,13 +899,11 @@ void sha256_sia()
         sha256d_gpu_hash_shared <<<grid_sha256, block_sha256, 0, t1>>> (threads_sha256, 0, d_sha256_resNonces[0]);
 
         cudaThreadSynchronize();
-
-        sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_100<<<grid_sia, block_sia.x+block_sha256.x, 8>>>
+        sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_0<<<grid_sia, block_sia.x+block_sha256.x, 8>>>
             (threads_sha256, 0, d_sha256_resNonces[0],
                 threads_sia, 0, d_sia_resNonces[thr_id], target2);
         cudaThreadSynchronize();
-
-        sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_0<<<grid_sia, block_sia.x+block_sha256.x, 8>>>
+        sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_100<<<grid_sia, 128, 8>>>
             (threads_sha256, 0, d_sha256_resNonces[0],
                 threads_sia, 0, d_sia_resNonces[thr_id], target2);
         cudaThreadSynchronize();
