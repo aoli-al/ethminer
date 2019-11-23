@@ -861,16 +861,17 @@ void blake_sha256()
         cudaStreamCreate ( &t1);
         cudaStreamCreate ( &t2);
         blake2b_gpu_hash <<<grid, block, 8, t1>>> (threads, 0, d_sha256_resNonces[thr_id], target2);
-        sha256d_gpu_hash_shared <<<grid_sha256, block_sha256, 0, t2>>> (threads_sha256, 0, d_sha256_resNonces[0]);
+        sha256d_gpu_hash_shared <<<grid_sha256, block_sha256, 0, t2>>> (threads_sha256 * 40, 0, d_sha256_resNonces[0]);
 
         cudaDeviceSynchronize();
 
         blake2b_gpu_hash_sha256d_gpu_hash_shared_0<<<grid, block.x + block_sha256.x, 8>>>
-            (threads, 0, d_sha256_resNonces[thr_id], target2, threads_sha256, 0, d_sha256_resNonces[0]);
+            (threads, 0, d_sha256_resNonces[thr_id], target2, threads_sha256 * 40, 0, d_sha256_resNonces[0]);
 
         cudaDeviceSynchronize();
         blake2b_gpu_hash_sha256d_gpu_hash_shared_100<<<grid, 128, 8>>>
-            (threads, 0, d_sha256_resNonces[thr_id], target2, threads_sha256, 0, d_sha256_resNonces[0]);
+            (threads, 0, d_sha256_resNonces[thr_id], target2, threads_sha256 * 40, 0, d_sha256_resNonces[0]);
+
     }
 
 

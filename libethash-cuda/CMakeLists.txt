@@ -4,7 +4,7 @@ set(CUDA_SEPARABLE_COMPILATION ON)
 set(CUDA_PROPAGATE_HOST_FLAGS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-use_fast_math;-rdc=true)
+set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-use_fast_math;-rdc=true;--resource-usage)
 
 if (NOT MSVC)
 	list(APPEND CUDA_NVCC_FLAGS "--disable-warnings")

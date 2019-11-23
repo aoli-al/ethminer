@@ -896,15 +896,15 @@ void sha256_sia()
         cudaStreamCreate ( &t2);
         sia_blake2b_gpu_hash <<<grid_sia, block_sia, 8, t2>>> (
             threads_sia, 0, d_sia_resNonces[thr_id], target2);
-        sha256d_gpu_hash_shared <<<grid_sha256, block_sha256, 0, t1>>> (threads_sha256, 0, d_sha256_resNonces[0]);
+        sha256d_gpu_hash_shared <<<grid_sha256, block_sha256, 0, t1>>> (threads_sha256 * 40, 0, d_sha256_resNonces[0]);
 
         cudaThreadSynchronize();
         sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_0<<<grid_sia, block_sia.x+block_sha256.x, 8>>>
-            (threads_sha256, 0, d_sha256_resNonces[0],
+            (threads_sha256 * 40, 0, d_sha256_resNonces[0],
                 threads_sia, 0, d_sia_resNonces[thr_id], target2);
         cudaThreadSynchronize();
         sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_100<<<grid_sia, 128, 8>>>
-            (threads_sha256, 0, d_sha256_resNonces[0],
+            (threads_sha256 * 40, 0, d_sha256_resNonces[0],
                 threads_sia, 0, d_sia_resNonces[thr_id], target2);
         cudaThreadSynchronize();
     }

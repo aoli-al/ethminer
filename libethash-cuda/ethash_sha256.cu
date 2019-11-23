@@ -768,15 +768,15 @@ void run_ethash_search_sha256(uint32_t gridSize, uint32_t blockSize, cudaStream_
         cudaStreamCreate ( &t2);
         CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
         cudaThreadSynchronize();
-        ethash_search3<<<gridSize, blockSize, 0, t2>>>(g_output, start_nonce);
-        sha256d_gpu_hash_shared <<<grid_sha256, block_sha256, 0, t1>>> (threads_sha256, 0, d_sha256_resNonces[0]);
+        ethash_search<<<gridSize, blockSize, 0, t2>>>(g_output, start_nonce);
+        sha256d_gpu_hash_shared <<<grid_sha256, block_sha256, 0, t1>>> (threads_sha256 * 40, 0, d_sha256_resNonces[0]);
         cudaThreadSynchronize();
         sha256d_gpu_hash_shared_ethash_search3_0<<<grid_sha256, block_sha256.x+blockSize>>>(
-            threads_sha256, 0, d_sha256_resNonces[0],
+            threads_sha256 * 40, 0, d_sha256_resNonces[0],
             g_output, start_nonce);
         cudaThreadSynchronize();
         sha256d_gpu_hash_shared_ethash_search3_100<<<grid_sha256, block_sha256>>>(
-            threads_sha256, 0, d_sha256_resNonces[0],
+            threads_sha256 * 40, 0, d_sha256_resNonces[0],
                 g_output, start_nonce);
         cudaThreadSynchronize();
     }

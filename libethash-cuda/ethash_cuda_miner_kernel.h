@@ -61,6 +61,7 @@ void set_header(hash32_t _header);
 
 void set_target(uint64_t _target);
 
+__global__ void ethash_search(volatile Search_results* g_output, uint64_t start_nonce);
 void run_ethash_search(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
     volatile Search_results* g_output, uint64_t start_nonce);
 void run_ethash_search_blake(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
@@ -72,6 +73,8 @@ void run_ethash_search_sia(uint32_t gridSize, uint32_t blockSize, cudaStream_t s
 void blake_sia();
 void blake_sha256();
 void sha256_sia();
+void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
+          volatile Search_results* g_output, uint64_t start_nonce);
 
 void ethash_generate_dag(uint64_t dag_size, uint32_t blocks, uint32_t threads, cudaStream_t stream);
 

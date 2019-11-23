@@ -821,7 +821,7 @@ void run_ethash_search_sia(uint32_t gridSize, uint32_t blockSize, cudaStream_t s
         cudaStream_t t2;
         cudaStreamCreate ( &t1);
         cudaStreamCreate ( &t2);
-        ethash_search4<<<gridSize, blockSize, 0, t1>>>(g_output, start_nonce);
+        ethash_search<<<gridSize, blockSize, 0, t1>>>(g_output, start_nonce);
         sia_blake2b_gpu_hash <<<grid, block, 8, t2>>> (threads, 0, d_resNonces[thr_id], target2);
         cudaThreadSynchronize();
         sia_blake2b_gpu_hash_ethash_search4_0<<<grid, block.x + blockSize, 8>>>(
