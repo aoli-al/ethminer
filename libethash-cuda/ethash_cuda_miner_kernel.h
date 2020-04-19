@@ -74,7 +74,7 @@ void set_target(uint64_t _target);
 // void blake_sha256();
 // void sha256_sia();
 void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
-          volatile Search_results* g_output, uint64_t start_nonce);
+          volatile Search_results* g_output, uint64_t start_nonce, int iter);
 
 void ethash_generate_dag(uint64_t dag_size, uint32_t blocks, uint32_t threads, cudaStream_t stream);
 

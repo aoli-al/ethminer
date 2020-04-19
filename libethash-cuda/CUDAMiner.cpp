@@ -33,11 +33,12 @@ struct CUDAChannel : public LogChannel
 };
 #define cudalog clog(CUDAChannel)
 
-CUDAMiner::CUDAMiner(unsigned _index, CUSettings _settings, DeviceDescriptor& _device)
+CUDAMiner::CUDAMiner(unsigned _index, CUSettings _settings, DeviceDescriptor& _device, int iter)
   : Miner("cuda-", _index),
     m_settings(_settings),
     m_batch_size(_settings.gridSize * _settings.blockSize),
-    m_streams_batch_size(_settings.gridSize * _settings.blockSize * _settings.streams)
+    m_streams_batch_size(_settings.gridSize * _settings.blockSize * _settings.streams),
+    iter(iter)
 {
     m_deviceDescriptor = _device;
 }
@@ -287,7 +288,7 @@ void CUDAMiner::search(
 
 //    four(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
     for (int i = 0; i < 5; i++) {
-        four(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
+        four(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce, iter);
         // run_ethash_search_sha256(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
         // run_ethash_search_sia(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
         // blake_sia();

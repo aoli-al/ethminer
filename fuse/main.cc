@@ -15,7 +15,7 @@ bool g_exitOnError = false;  // Whether or not ethminer should exit on mining th
 boost::asio::io_service g_io_service;  //
 
 
-int main() {
+int main(int argc, char *argv[]) {
     const int num_streams = 8;
     cudaStream_t streams[num_streams];
     volatile Search_results *buffer = nullptr;
@@ -25,9 +25,10 @@ int main() {
         cudaStreamCreate(&streams[i]);
     }
     CUSettings setting;
+    int iter = std::stoi(argv[1]);
     std::map<std::string, DeviceDescriptor> m_DevicesCollection = {};
     CUDAMiner::enumDevices(m_DevicesCollection);
-    CUDAMiner miner(0, setting, m_DevicesCollection.begin()->second);
+    CUDAMiner miner(0, setting, m_DevicesCollection.begin()->second, iter);
     WorkPackage wp;
     auto _ec = ethash::get_global_epoch_context(0);
     EpochContext c;

@@ -267,7 +267,7 @@ bool Farm::start()
             {
                 minerTelemetry.prefix = "cu";
                 m_miners.push_back(std::shared_ptr<Miner>(
-                    new CUDAMiner(m_miners.size(), m_CUSettings, it->second)));
+                    new CUDAMiner(m_miners.size(), m_CUSettings, it->second, 0)));
             }
 #endif
 #if ETH_ETHASHCL
