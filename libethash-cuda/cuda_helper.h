@@ -43,11 +43,6 @@ extern uint32_t cuda_check_hash_suppl(
     int thr_id, uint32_t threads, uint32_t startNounce, uint32_t* d_inputHash, uint32_t foundnonce);
 extern void cudaReportHardwareFailure(int thr_id, cudaError_t error, const char* func);
 
-#ifndef __CUDA_ARCH__
-// define blockDim and threadIdx for host
-extern const dim3 blockDim;
-extern const uint3 threadIdx;
-#endif
 
 
 #ifndef SPH_C32

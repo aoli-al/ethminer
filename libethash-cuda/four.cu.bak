@@ -674,12 +674,6 @@ __global__ void ethash_search(volatile Search_results* g_output, uint64_t start_
    g_output->result[index].mix[7] = mix[3].y;
 }
 
-#include "blake2b_gpu_hash_sha256d_gpu_hash_shared_.inc"
-#include "blake2b_gpu_hash_sia_blake2b_gpu_hash_.inc"
-#include "ethash_search_blake2b_gpu_hash_.inc"
-#include "sha256d_gpu_hash_shared_ethash_search_.inc"
-#include "sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_.inc"
-#include "sia_blake2b_gpu_hash_ethash_search_.inc"
 
 
 }
@@ -743,30 +737,6 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
         blake2b_gpu_hash <<<grid, block, 8, t3>>> (
             threads, 0, d_resNonces_blake[thr_id], target2, i
             );
-        cudaDeviceSynchronize();
-        ethash_search_blake2b_gpu_hash_fused_kernel_vfuse_lb_idx_0
-        <<<gridSize, blockSize, 0, t1>>> (
-          g_output, start_nonce, 
-          threads, 0, d_resNonces_blake[thr_id], target2, i
-        );
-        cudaDeviceSynchronize();
-        ethash_search_blake2b_gpu_hash_fused_kernel_vfuse_idx_0
-        <<<gridSize, blockSize, 0, t1>>> (
-          g_output, start_nonce, 
-          threads, 0, d_resNonces_blake[thr_id], target2, i
-        );
-        cudaDeviceSynchronize();
-        ethash_search_blake2b_gpu_hash_fused_kernel_hfuse_lb_idx_0
-        <<<gridSize, 256, 0, t1>>> (
-          g_output, start_nonce, 
-          threads, 0, d_resNonces_blake[thr_id], target2, i
-        );
-        cudaDeviceSynchronize();
-        ethash_search_blake2b_gpu_hash_fused_kernel_hfuse_idx_0
-        <<<gridSize, 256, 0, t1>>> (
-          g_output, start_nonce, 
-          threads, 0, d_resNonces_blake[thr_id], target2, i
-        );
        }
        for (int i = 30; i  < 90; i++) {
         ethash_search<<<gridSize, blockSize, 0, t1>>>(

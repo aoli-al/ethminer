@@ -286,13 +286,13 @@ void CUDAMiner::search(
     cudaProfilerStart();
 
 //    four(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
-    for (int i = 0; i < 1; i++) {
-        run_ethash_search_blake(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
-        run_ethash_search_sha256(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
-        run_ethash_search_sia(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
-        blake_sia();
-        blake_sha256();
-        sha256_sia();
+    for (int i = 0; i < 5; i++) {
+        four(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
+        // run_ethash_search_sha256(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
+        // run_ethash_search_sia(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
+        // blake_sia();
+        // blake_sha256();
+        // sha256_sia();
     }
     cudaProfilerStop();
 

@@ -31,6 +31,7 @@ option(ETHDBUS "Build with D-Bus support" OFF)
 option(APICORE "Build with API Server support" ON)
 option(BINKERN "Install AMD binary kernels" ON)
 option(DEVBUILD "Log developer metrics" OFF)
+option(CMAKE_EXPORT_COMPILE_COMMANDS "" ON)
 
 # propagates CMake configuration options to the compiler
 function(configureProject)
