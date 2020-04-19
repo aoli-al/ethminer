@@ -735,6 +735,30 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
         sia_blake2b_gpu_hash <<<grid, block, 8, t2>>> (
             threads, 0, d_resNonces[thr_id], target2, i
             );
+        cudaDeviceSynchronize();
+        sia_blake2b_gpu_hash_ethash_search_fused_kernel_vfuse_lb_idx_0
+        <<<grid, 128, 8, t2>>> (
+            threads, 0, d_resNonces[thr_id], target2, i,
+            g_output, start_nonce
+        );
+        cudaDeviceSynchronize();
+        sia_blake2b_gpu_hash_ethash_search_fused_kernel_vfuse_idx_0
+        <<<grid, 128, 8, t2>>> (
+            threads, 0, d_resNonces[thr_id], target2, i,
+            g_output, start_nonce
+        );
+        cudaDeviceSynchronize();
+        sia_blake2b_gpu_hash_ethash_search_fused_kernel_hfuse_idx_0
+        <<<grid, 256, 8, t2>>> (
+            threads, 0, d_resNonces[thr_id], target2, i,
+            g_output, start_nonce
+        );
+        cudaDeviceSynchronize();
+        sia_blake2b_gpu_hash_ethash_search_fused_kernel_hfuse_lb_idx_0
+        <<<grid, 256, 8, t2>>> (
+            threads, 0, d_resNonces[thr_id], target2, i,
+            g_output, start_nonce
+        );
        }
        for (int i = 60; i  < 140; i++) {
         ethash_search<<<gridSize, blockSize, 0, t1>>>(
@@ -745,25 +769,25 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
             );
         cudaDeviceSynchronize();
         ethash_search_blake2b_gpu_hash_fused_kernel_vfuse_lb_idx_0
-        <<<gridSize, blockSize, 0, t1>>> (
+        <<<gridSize, blockSize, 8, t1>>> (
           g_output, start_nonce, 
           threads, 0, d_resNonces_blake[thr_id], target2, i
         );
         cudaDeviceSynchronize();
         ethash_search_blake2b_gpu_hash_fused_kernel_vfuse_idx_0
-        <<<gridSize, blockSize, 0, t1>>> (
+        <<<gridSize, blockSize, 8, t1>>> (
           g_output, start_nonce, 
           threads, 0, d_resNonces_blake[thr_id], target2, i
         );
         cudaDeviceSynchronize();
         ethash_search_blake2b_gpu_hash_fused_kernel_hfuse_lb_idx_0
-        <<<gridSize, 256, 0, t1>>> (
+        <<<gridSize, 256, 8, t1>>> (
           g_output, start_nonce, 
           threads, 0, d_resNonces_blake[thr_id], target2, i
         );
         cudaDeviceSynchronize();
         ethash_search_blake2b_gpu_hash_fused_kernel_hfuse_idx_0
-        <<<gridSize, 256, 0, t1>>> (
+        <<<gridSize, 256, 8, t1>>> (
           g_output, start_nonce, 
           threads, 0, d_resNonces_blake[thr_id], target2, i
         );
@@ -775,6 +799,30 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
         sha256d_gpu_hash_shared <<<grid_sha256, block_sha256, 0, t4>>> (
             threads_sha256 * i, 0, d_sha256_resNonces[0], i 
             );
+        cudaDeviceSynchronize();
+        sha256d_gpu_hash_shared_ethash_search_fused_kernel_vfuse_lb_idx_0
+        <<<gridSize, 128, 0, t1>>> (
+            threads_sha256 * i, 0, d_sha256_resNonces[0], i,
+            g_output, start_nonce
+        );
+        cudaDeviceSynchronize();
+        sha256d_gpu_hash_shared_ethash_search_fused_kernel_vfuse_idx_0
+        <<<gridSize, 128, 0, t1>>> (
+            threads_sha256 * i, 0, d_sha256_resNonces[0], i,
+            g_output, start_nonce
+        );
+        cudaDeviceSynchronize();
+        sha256d_gpu_hash_shared_ethash_search_fused_kernel_hfuse_idx_0
+        <<<gridSize, 256, 0, t1>>> (
+            threads_sha256 * i, 0, d_sha256_resNonces[0], i,
+            g_output, start_nonce
+        );
+        cudaDeviceSynchronize();
+        sha256d_gpu_hash_shared_ethash_search_fused_kernel_hfuse_lb_idx_0
+        <<<gridSize, 256, 0, t1>>> (
+            threads_sha256 * i, 0, d_sha256_resNonces[0], i,
+            g_output, start_nonce
+        );
        }
        for (int i = 60; i  < 140; i++) {
         blake2b_gpu_hash <<<grid, block, 8, t3>>> (
@@ -783,6 +831,30 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
        sia_blake2b_gpu_hash <<<grid, block, 8, t2>>> (
            threads, 0, d_resNonces[thr_id], target2, 100
            );
+        cudaDeviceSynchronize();
+        blake2b_gpu_hash_sia_blake2b_gpu_hash_fused_kernel_vfuse_lb_idx_0
+        <<<grid, 128, 8, t2>>> (
+            threads, 0, d_resNonces_blake[thr_id], target2, i,
+           threads, 0, d_resNonces[thr_id], target2, 100
+        );
+        cudaDeviceSynchronize();
+        blake2b_gpu_hash_sia_blake2b_gpu_hash_fused_kernel_vfuse_idx_0
+        <<<grid, 128, 8, t2>>> (
+            threads, 0, d_resNonces_blake[thr_id], target2, i,
+           threads, 0, d_resNonces[thr_id], target2, 100
+        );
+        cudaDeviceSynchronize();
+        blake2b_gpu_hash_sia_blake2b_gpu_hash_fused_kernel_hfuse_idx_0
+        <<<grid, 256, 8, t2>>> (
+            threads, 0, d_resNonces_blake[thr_id], target2, i,
+           threads, 0, d_resNonces[thr_id], target2, 100
+        );
+        cudaDeviceSynchronize();
+        blake2b_gpu_hash_sia_blake2b_gpu_hash_fused_kernel_hfuse_lb_idx_0
+        <<<grid, 256, 8, t2>>> (
+            threads, 0, d_resNonces_blake[thr_id], target2, i,
+           threads, 0, d_resNonces[thr_id], target2, 100
+        );
        }
        for (int i = 60; i  < 140; i++) {
         blake2b_gpu_hash <<<grid, block, 8, t3>>> (
@@ -791,6 +863,30 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
        sha256d_gpu_hash_shared <<<grid_sha256, block_sha256, 0, t4>>> (
            threads_sha256 * 60, 0, d_sha256_resNonces[0], 60
            );
+        cudaDeviceSynchronize();
+        blake2b_gpu_hash_sha256d_gpu_hash_shared_fused_kernel_vfuse_lb_idx_0
+        <<<grid, 128, 8, t3>>> (
+          threads, 0, d_resNonces_blake[thr_id], target2, i,
+          threads_sha256 * 60, 0, d_sha256_resNonces[0], 60
+        );
+        cudaDeviceSynchronize();
+        blake2b_gpu_hash_sha256d_gpu_hash_shared_fused_kernel_vfuse_idx_0
+        <<<grid, 128, 8, t3>>> (
+          threads, 0, d_resNonces_blake[thr_id], target2, i,
+          threads_sha256 * 60, 0, d_sha256_resNonces[0], 60
+        );
+        cudaDeviceSynchronize();
+        blake2b_gpu_hash_sha256d_gpu_hash_shared_fused_kernel_hfuse_idx_0
+        <<<grid, 256, 8, t3>>> (
+          threads, 0, d_resNonces_blake[thr_id], target2, i,
+          threads_sha256 * 60, 0, d_sha256_resNonces[0], 60
+        );
+        cudaDeviceSynchronize();
+        blake2b_gpu_hash_sha256d_gpu_hash_shared_fused_kernel_hfuse_lb_idx_0
+        <<<grid, 256, 8, t3>>> (
+          threads, 0, d_resNonces_blake[thr_id], target2, i,
+          threads_sha256 * 60, 0, d_sha256_resNonces[0], 60
+        );
        }
        for (int i = 60; i  < 140; i++) {
         sia_blake2b_gpu_hash <<<grid, block, 8, t2>>> (
@@ -799,6 +895,30 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
         sha256d_gpu_hash_shared <<<grid_sha256, block_sha256, 0, t4>>> (
             threads_sha256 * 60, 0, d_sha256_resNonces[0], 60
             );
+        cudaDeviceSynchronize();
+        sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_fused_kernel_vfuse_lb_idx_0
+        <<<grid, 128, 8, t2>>> (
+            threads_sha256 * 60, 0, d_sha256_resNonces[0], 60,
+            threads, 0, d_resNonces[thr_id], target2, i
+        );
+        cudaDeviceSynchronize();
+        sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_fused_kernel_vfuse_idx_0
+        <<<grid, 128, 8, t2>>> (
+            threads_sha256 * 60, 0, d_sha256_resNonces[0], 60,
+            threads, 0, d_resNonces[thr_id], target2, i
+        );
+        cudaDeviceSynchronize();
+        sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_fused_kernel_hfuse_idx_0
+        <<<grid, 256, 8, t2>>> (
+            threads_sha256 * 60, 0, d_sha256_resNonces[0], 60,
+            threads, 0, d_resNonces[thr_id], target2, i
+        );
+        cudaDeviceSynchronize();
+        sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_fused_kernel_hfuse_lb_idx_0
+        <<<grid, 256, 8, t2>>> (
+            threads_sha256 * 60, 0, d_sha256_resNonces[0], 60,
+            threads, 0, d_resNonces[thr_id], target2, i
+        );
        }
 
       //  ethash_search<<<gridSize, blockSize, 0, t1>>>(
