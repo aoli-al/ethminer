@@ -287,7 +287,7 @@ void CUDAMiner::search(
     cudaProfilerStart();
 
 //    four(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 1; i++) {
         four(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce, iter);
         // run_ethash_search_sha256(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
         // run_ethash_search_sia(m_settings.gridSize, m_settings.blockSize, stream, &buffer, start_nonce);
