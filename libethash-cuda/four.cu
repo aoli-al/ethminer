@@ -718,6 +718,8 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
 
        if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
            return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
 
 //        const uint2 target2 = make_uint2(0, 1);
        cudaStream_t t1;
@@ -736,24 +738,53 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
             threads, 0, d_resNonces[thr_id], target2, i
             );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         sia_blake2b_gpu_hash_ethash_search_fused_kernel_vfuse_lb_idx_0
         <<<grid, 128, 8, t2>>> (
             threads, 0, d_resNonces[thr_id], target2, i,
             g_output, start_nonce
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
+
         sia_blake2b_gpu_hash_ethash_search_fused_kernel_vfuse_idx_0
         <<<grid, 128, 8, t2>>> (
             threads, 0, d_resNonces[thr_id], target2, i,
             g_output, start_nonce
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         sia_blake2b_gpu_hash_ethash_search_fused_kernel_hfuse_idx_0
         <<<grid, 256, 8, t2>>> (
             threads, 0, d_resNonces[thr_id], target2, i,
             g_output, start_nonce
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         sia_blake2b_gpu_hash_ethash_search_fused_kernel_hfuse_lb_idx_0
         <<<grid, 256, 8, t2>>> (
             threads, 0, d_resNonces[thr_id], target2, i,
@@ -768,24 +799,52 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
             threads, 0, d_resNonces_blake[thr_id], target2, i
             );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         ethash_search_blake2b_gpu_hash_fused_kernel_vfuse_lb_idx_0
         <<<gridSize, blockSize, 8, t1>>> (
           g_output, start_nonce, 
           threads, 0, d_resNonces_blake[thr_id], target2, i
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         ethash_search_blake2b_gpu_hash_fused_kernel_vfuse_idx_0
         <<<gridSize, blockSize, 8, t1>>> (
           g_output, start_nonce, 
           threads, 0, d_resNonces_blake[thr_id], target2, i
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         ethash_search_blake2b_gpu_hash_fused_kernel_hfuse_lb_idx_0
         <<<gridSize, 256, 8, t1>>> (
           g_output, start_nonce, 
           threads, 0, d_resNonces_blake[thr_id], target2, i
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         ethash_search_blake2b_gpu_hash_fused_kernel_hfuse_idx_0
         <<<gridSize, 256, 8, t1>>> (
           g_output, start_nonce, 
@@ -800,24 +859,52 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
             threads_sha256 * i, 0, d_sha256_resNonces[0], i 
             );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         sha256d_gpu_hash_shared_ethash_search_fused_kernel_vfuse_lb_idx_0
         <<<gridSize, 128, 0, t1>>> (
             threads_sha256 * i, 0, d_sha256_resNonces[0], i,
             g_output, start_nonce
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         sha256d_gpu_hash_shared_ethash_search_fused_kernel_vfuse_idx_0
         <<<gridSize, 128, 0, t1>>> (
             threads_sha256 * i, 0, d_sha256_resNonces[0], i,
             g_output, start_nonce
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         sha256d_gpu_hash_shared_ethash_search_fused_kernel_hfuse_idx_0
         <<<gridSize, 256, 0, t1>>> (
             threads_sha256 * i, 0, d_sha256_resNonces[0], i,
             g_output, start_nonce
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         sha256d_gpu_hash_shared_ethash_search_fused_kernel_hfuse_lb_idx_0
         <<<gridSize, 256, 0, t1>>> (
             threads_sha256 * i, 0, d_sha256_resNonces[0], i,
@@ -832,24 +919,52 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
            threads, 0, d_resNonces[thr_id], target2, 100
            );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         blake2b_gpu_hash_sia_blake2b_gpu_hash_fused_kernel_vfuse_lb_idx_0
         <<<grid, 128, 8, t2>>> (
             threads, 0, d_resNonces_blake[thr_id], target2, i,
            threads, 0, d_resNonces[thr_id], target2, 100
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         blake2b_gpu_hash_sia_blake2b_gpu_hash_fused_kernel_vfuse_idx_0
         <<<grid, 128, 8, t2>>> (
             threads, 0, d_resNonces_blake[thr_id], target2, i,
            threads, 0, d_resNonces[thr_id], target2, 100
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         blake2b_gpu_hash_sia_blake2b_gpu_hash_fused_kernel_hfuse_idx_0
         <<<grid, 256, 8, t2>>> (
             threads, 0, d_resNonces_blake[thr_id], target2, i,
            threads, 0, d_resNonces[thr_id], target2, 100
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         blake2b_gpu_hash_sia_blake2b_gpu_hash_fused_kernel_hfuse_lb_idx_0
         <<<grid, 256, 8, t2>>> (
             threads, 0, d_resNonces_blake[thr_id], target2, i,
@@ -864,24 +979,52 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
            threads_sha256 * 60, 0, d_sha256_resNonces[0], 60
            );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         blake2b_gpu_hash_sha256d_gpu_hash_shared_fused_kernel_vfuse_lb_idx_0
         <<<grid, 128, 8, t3>>> (
           threads, 0, d_resNonces_blake[thr_id], target2, i,
           threads_sha256 * 60, 0, d_sha256_resNonces[0], 60
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         blake2b_gpu_hash_sha256d_gpu_hash_shared_fused_kernel_vfuse_idx_0
         <<<grid, 128, 8, t3>>> (
           threads, 0, d_resNonces_blake[thr_id], target2, i,
           threads_sha256 * 60, 0, d_sha256_resNonces[0], 60
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         blake2b_gpu_hash_sha256d_gpu_hash_shared_fused_kernel_hfuse_idx_0
         <<<grid, 256, 8, t3>>> (
           threads, 0, d_resNonces_blake[thr_id], target2, i,
           threads_sha256 * 60, 0, d_sha256_resNonces[0], 60
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         blake2b_gpu_hash_sha256d_gpu_hash_shared_fused_kernel_hfuse_lb_idx_0
         <<<grid, 256, 8, t3>>> (
           threads, 0, d_resNonces_blake[thr_id], target2, i,
@@ -896,24 +1039,52 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
             threads_sha256 * 60, 0, d_sha256_resNonces[0], 60
             );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_fused_kernel_vfuse_lb_idx_0
         <<<grid, 128, 8, t2>>> (
             threads_sha256 * 60, 0, d_sha256_resNonces[0], 60,
             threads, 0, d_resNonces[thr_id], target2, i
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_fused_kernel_vfuse_idx_0
         <<<grid, 128, 8, t2>>> (
             threads_sha256 * 60, 0, d_sha256_resNonces[0], 60,
             threads, 0, d_resNonces[thr_id], target2, i
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_fused_kernel_hfuse_idx_0
         <<<grid, 256, 8, t2>>> (
             threads_sha256 * 60, 0, d_sha256_resNonces[0], 60,
             threads, 0, d_resNonces[thr_id], target2, i
         );
         cudaDeviceSynchronize();
+       CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
+
+       if (cudaMemset(d_resNonces_blake[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
+           return;
+       g_output->count = 0;
         sha256d_gpu_hash_shared_sia_blake2b_gpu_hash_fused_kernel_hfuse_lb_idx_0
         <<<grid, 256, 8, t2>>> (
             threads_sha256 * 60, 0, d_sha256_resNonces[0], 60,
