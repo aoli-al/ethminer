@@ -91,12 +91,12 @@ if (((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockD
         mix_hash14[1] = state16[9];
         mix_hash14[2] = state16[10];
         mix_hash14[3] = state16[11];
-        return;
+        goto exit_point1;
     }
     uint32_t index19;
     index19 = atomicInc((uint32_t *)&g_output9->count, 4294967295U);
     if (index19 >= 4U)
-        return;
+        goto exit_point1;
     g_output9->result[index19].gid = gid11;
     g_output9->result[index19].mix[0] = mix12[0].x;
     g_output9->result[index19].mix[1] = mix12[0].y;
@@ -106,6 +106,8 @@ if (((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockD
     g_output9->result[index19].mix[5] = mix12[2].y;
     g_output9->result[index19].mix[6] = mix12[3].x;
     g_output9->result[index19].mix[7] = mix12[3].y;
+  exit_point1:
+    ;
 }
 if (((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y)>=0 && (threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y) < 128)){
     unsigned int blockDim_x_0;
@@ -349,12 +351,12 @@ if (((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockD
         mix_hash14[1] = state16[9];
         mix_hash14[2] = state16[10];
         mix_hash14[3] = state16[11];
-        return;
+        goto exit_point1;
     }
     uint32_t index19;
     index19 = atomicInc((uint32_t *)&g_output9->count, 4294967295U);
     if (index19 >= 4U)
-        return;
+        goto exit_point1;
     g_output9->result[index19].gid = gid11;
     g_output9->result[index19].mix[0] = mix12[0].x;
     g_output9->result[index19].mix[1] = mix12[0].y;
@@ -364,6 +366,8 @@ if (((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockD
     g_output9->result[index19].mix[5] = mix12[2].y;
     g_output9->result[index19].mix[6] = mix12[3].x;
     g_output9->result[index19].mix[7] = mix12[3].y;
+  exit_point1:
+    ;
 }
 if (((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y)>=0 && (threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y) < 128)){
     unsigned int blockDim_x_0;
@@ -607,12 +611,12 @@ if (!(cuda_swab64(keccak_f1600_final(state16)) > d_target)) {
     mix_hash14[1] = state16[9];
     mix_hash14[2] = state16[10];
     mix_hash14[3] = state16[11];
-    return;
+    goto exit_point1;
 }
 uint32_t index19;
 index19 = atomicInc((uint32_t *)&g_output9->count, 4294967295U);
 if (index19 >= 4U)
-    return;
+    goto exit_point1;
 g_output9->result[index19].gid = gid11;
 g_output9->result[index19].mix[0] = mix12[0].x;
 g_output9->result[index19].mix[1] = mix12[0].y;
@@ -622,6 +626,8 @@ g_output9->result[index19].mix[4] = mix12[2].x;
 g_output9->result[index19].mix[5] = mix12[2].y;
 g_output9->result[index19].mix[6] = mix12[3].x;
 g_output9->result[index19].mix[7] = mix12[3].y;
+exit_point1:
+;
 label_4:;
 if (!((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y)>=128 && (threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y) < 256)) goto label_5;
 unsigned int blockDim_x_0;
@@ -865,12 +871,12 @@ if (!(cuda_swab64(keccak_f1600_final(state16)) > d_target)) {
     mix_hash14[1] = state16[9];
     mix_hash14[2] = state16[10];
     mix_hash14[3] = state16[11];
-    return;
+    goto exit_point1;
 }
 uint32_t index19;
 index19 = atomicInc((uint32_t *)&g_output9->count, 4294967295U);
 if (index19 >= 4U)
-    return;
+    goto exit_point1;
 g_output9->result[index19].gid = gid11;
 g_output9->result[index19].mix[0] = mix12[0].x;
 g_output9->result[index19].mix[1] = mix12[0].y;
@@ -880,6 +886,8 @@ g_output9->result[index19].mix[4] = mix12[2].x;
 g_output9->result[index19].mix[5] = mix12[2].y;
 g_output9->result[index19].mix[6] = mix12[3].x;
 g_output9->result[index19].mix[7] = mix12[3].y;
+exit_point1:
+;
 label_6:;
 if (!((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y)>=128 && (threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y) < 256)) goto label_7;
 unsigned int blockDim_x_0;

@@ -240,12 +240,12 @@ if (((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockD
         mix_hash15[1] = state17[9];
         mix_hash15[2] = state17[10];
         mix_hash15[3] = state17[11];
-        return;
+        goto exit_point1;
     }
     uint32_t index20;
     index20 = atomicInc((uint32_t *)&g_output10->count, 4294967295U);
     if (index20 >= 4U)
-        return;
+        goto exit_point1;
     g_output10->result[index20].gid = gid12;
     g_output10->result[index20].mix[0] = mix13[0].x;
     g_output10->result[index20].mix[1] = mix13[0].y;
@@ -255,6 +255,8 @@ if (((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockD
     g_output10->result[index20].mix[5] = mix13[2].y;
     g_output10->result[index20].mix[6] = mix13[3].x;
     g_output10->result[index20].mix[7] = mix13[3].y;
+  exit_point1:
+    ;
 }
 }
  __global__ __launch_bounds__(128, 0) void sia_blake2b_gpu_hash_ethash_search_fused_kernel_vfuse_idx_0(const uint32_t threads0, const uint32_t startNonce1, uint32_t *resNonce2, const uint2 target23, uint32_t iter4, volatile Search_results *g_output10, uint64_t start_nonce11)
@@ -499,12 +501,12 @@ if (((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockD
         mix_hash15[1] = state17[9];
         mix_hash15[2] = state17[10];
         mix_hash15[3] = state17[11];
-        return;
+        goto exit_point1;
     }
     uint32_t index20;
     index20 = atomicInc((uint32_t *)&g_output10->count, 4294967295U);
     if (index20 >= 4U)
-        return;
+        goto exit_point1;
     g_output10->result[index20].gid = gid12;
     g_output10->result[index20].mix[0] = mix13[0].x;
     g_output10->result[index20].mix[1] = mix13[0].y;
@@ -514,6 +516,8 @@ if (((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockD
     g_output10->result[index20].mix[5] = mix13[2].y;
     g_output10->result[index20].mix[6] = mix13[3].x;
     g_output10->result[index20].mix[7] = mix13[3].y;
+  exit_point1:
+    ;
 }
 }
  __global__ __launch_bounds__(256, 0) void sia_blake2b_gpu_hash_ethash_search_fused_kernel_hfuse_idx_0(const uint32_t threads0, const uint32_t startNonce1, uint32_t *resNonce2, const uint2 target23, uint32_t iter4, volatile Search_results *g_output10, uint64_t start_nonce11)
@@ -758,12 +762,12 @@ if (!(cuda_swab64(keccak_f1600_final(state17)) > d_target)) {
     mix_hash15[1] = state17[9];
     mix_hash15[2] = state17[10];
     mix_hash15[3] = state17[11];
-    return;
+    goto exit_point1;
 }
 uint32_t index20;
 index20 = atomicInc((uint32_t *)&g_output10->count, 4294967295U);
 if (index20 >= 4U)
-    return;
+    goto exit_point1;
 g_output10->result[index20].gid = gid12;
 g_output10->result[index20].mix[0] = mix13[0].x;
 g_output10->result[index20].mix[1] = mix13[0].y;
@@ -773,6 +777,8 @@ g_output10->result[index20].mix[4] = mix13[2].x;
 g_output10->result[index20].mix[5] = mix13[2].y;
 g_output10->result[index20].mix[6] = mix13[3].x;
 g_output10->result[index20].mix[7] = mix13[3].y;
+exit_point1:
+;
 label_5:;
 }
  __global__ __launch_bounds__(256, 6) void sia_blake2b_gpu_hash_ethash_search_fused_kernel_hfuse_lb_idx_0(const uint32_t threads0, const uint32_t startNonce1, uint32_t *resNonce2, const uint2 target23, uint32_t iter4, volatile Search_results *g_output10, uint64_t start_nonce11)
@@ -1017,12 +1023,12 @@ if (!(cuda_swab64(keccak_f1600_final(state17)) > d_target)) {
     mix_hash15[1] = state17[9];
     mix_hash15[2] = state17[10];
     mix_hash15[3] = state17[11];
-    return;
+    goto exit_point1;
 }
 uint32_t index20;
 index20 = atomicInc((uint32_t *)&g_output10->count, 4294967295U);
 if (index20 >= 4U)
-    return;
+    goto exit_point1;
 g_output10->result[index20].gid = gid12;
 g_output10->result[index20].mix[0] = mix13[0].x;
 g_output10->result[index20].mix[1] = mix13[0].y;
@@ -1032,5 +1038,7 @@ g_output10->result[index20].mix[4] = mix13[2].x;
 g_output10->result[index20].mix[5] = mix13[2].y;
 g_output10->result[index20].mix[6] = mix13[3].x;
 g_output10->result[index20].mix[7] = mix13[3].y;
+exit_point1:
+;
 label_7:;
 }
