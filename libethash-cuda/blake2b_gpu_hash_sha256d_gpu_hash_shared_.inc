@@ -1,4 +1,4 @@
- __global__ __launch_bounds__(128, 8) void blake2b_gpu_hash_sha256d_gpu_hash_shared_fused_kernel_vfuse_lb_idx_0(const uint32_t threads10, const uint32_t startNonce11, uint32_t *resNonce12, const uint2 target213, uint32_t iter14, const uint32_t threads0, const uint32_t startNonce1, uint32_t *resNonces2, uint32_t iter3)
+ __global__ __launch_bounds__(128, 5) void blake2b_gpu_hash_sha256d_gpu_hash_shared_fused_kernel_vfuse_lb_idx_0(const uint32_t threads10, const uint32_t startNonce11, uint32_t *resNonce12, const uint2 target213, uint32_t iter14, const uint32_t threads0, const uint32_t startNonce1, uint32_t *resNonces2, uint32_t iter3)
  {
 if (((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y)>=0 && (threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y) < 128)){
     unsigned int blockDim_x_1;
@@ -619,7 +619,7 @@ for (int i = 0; i < iter3; i++) {
 }
 label_5:;
 }
- __global__ __launch_bounds__(256, 8) void blake2b_gpu_hash_sha256d_gpu_hash_shared_fused_kernel_hfuse_lb_idx_0(const uint32_t threads10, const uint32_t startNonce11, uint32_t *resNonce12, const uint2 target213, uint32_t iter14, const uint32_t threads0, const uint32_t startNonce1, uint32_t *resNonces2, uint32_t iter3)
+ __global__ __launch_bounds__(256, 5) void blake2b_gpu_hash_sha256d_gpu_hash_shared_fused_kernel_hfuse_lb_idx_0(const uint32_t threads10, const uint32_t startNonce11, uint32_t *resNonce12, const uint2 target213, uint32_t iter14, const uint32_t threads0, const uint32_t startNonce1, uint32_t *resNonces2, uint32_t iter3)
  {
 if (!((threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y)>=0 && (threadIdx.x + threadIdx.y * blockDim.x + threadIdx.z * blockDim.x * blockDim.y) < 128)) goto label_6;
 unsigned int blockDim_x_1;
