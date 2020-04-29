@@ -723,7 +723,7 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
        cudaStream_t t4;
        cudaStreamCreate ( &t3);
        cudaStreamCreate ( &t4);
-       for (int i = 70; i  < 210; i++) {
+       for (int i = 140; i  < 141; i++) {
          CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
          if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
              return;
@@ -786,7 +786,7 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
             g_output, start_nonce
         );
        }
-       for (int i = 70; i  < 210; i++) {
+       for (int i = 140; i  < 141; i++) {
          CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
          if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
              return;
@@ -849,7 +849,7 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
           threads, 0, d_resNonces_blake[thr_id], target2, i
         );
        }
-       for (int i = 50; i  < 140; i++) {
+       for (int i = 100; i  < 101; i++) {
          CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
          if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
              return;
@@ -912,7 +912,7 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
             g_output, start_nonce
         );
        }
-       for (int i = 70; i  < 210; i++) {
+       for (int i = 140; i  < 141; i++) {
          CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
          if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
              return;
@@ -982,7 +982,7 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
         cudaDeviceSynchronize();
         g_output->count = 0;
        }
-       for (int i = 70; i  < 210; i++) {
+       for (int i = 140; i  < 141; i++) {
          CUDA_SAFE_CALL(cudaMemset(d_sha256_resNonces[0], 0xFF, 2 * sizeof(uint32_t)));
          if (cudaMemset(d_resNonces[thr_id], 0xff, NBN*sizeof(uint32_t)) != cudaSuccess)
              return;
@@ -1045,7 +1045,7 @@ void four(uint32_t gridSize, uint32_t blockSize, cudaStream_t stream,
           threads_sha256 * 100, 0, d_sha256_resNonces[0], 100
         );
        }
-       for (int i = 70; i  < 210; i++) {
+       for (int i = 140; i  < 141; i++) {
         sia_blake2b_gpu_hash <<<grid, block, 8, t2>>> (
             threads, 0, d_resNonces[thr_id], target2, i
             );
