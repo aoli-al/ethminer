@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
 include(cmake/cable/bootstrap.cmake)
+set(CMAKE_C_COMPILER gcc)
+set(CMAKE_CXX_COMPILER g++)
 
 include(CableBuildInfo)
 include(CableBuildType)
