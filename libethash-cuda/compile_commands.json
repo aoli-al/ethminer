@@ -1,7 +1,7 @@
 [
   {
     "directory": "/root/ethminer/libethash-cuda",
-    "command": "clang++ --cuda-device-only -nocudalib -D__CUDACC__ /root/ethminer/libethash-cuda/four.cu -o /root/ethminer/build/libethash-cuda/CMakeFiles/ethash-cuda.dir//ethash-cuda_generated_four.cu.o.NVCC-depend -m64 -DETH_ETHASHCL -DETH_ETHASHCUDA -DAPI_CORE -DBIN_KERN -O3 --cuda-gpu-arch=sm_62 -DNVCC -I/usr/local/cuda/include -I/root/ethminer/libethash-cuda/.. -I/root/ethminer/build/libethash-cuda -I/root/.hunter/_Base/4b894e1/53fea1f/cb395ce/Install/include",
+    "command": "clang++ --cuda-device-only -nocudalib --cuda-path=/usr/local/cuda -D__CUDACC__ /root/ethminer/libethash-cuda/four.cu -o /root/ethminer/build/libethash-cuda/CMakeFiles/ethash-cuda.dir//ethash-cuda_generated_four.cu.o.NVCC-depend -m64 -DETH_ETHASHCL -DETH_ETHASHCUDA -DAPI_CORE -DBIN_KERN -O3 --cuda-gpu-arch=sm_62 -DNVCC -I/usr/local/cuda/include -I/root/ethminer/libethash-cuda/.. -I/root/ethminer/build/libethash-cuda -I/root/.hunter/_Base/4b894e1/53fea1f/cb395ce/Install/include",
     "file": "four.cu"
   }
 ]
